@@ -1,0 +1,14 @@
+body{
+    background-color:#4b009c;
+    list-style:none;
+}
+
+a {
+    color:#008bfc;
+    text-decoration:none;
+}
+
+li {
+display: inline;
+padding-left: 5px; 
+}
