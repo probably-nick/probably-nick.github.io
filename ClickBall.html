@@ -1,0 +1,128 @@
+<html>
+
+  <head>
+    <link href="./main.d8e0d294.css" rel="stylesheet"></head>
+    <script type="text/javascript" src="js/processing.js"></script>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>Processing Demo</title>
+      <script type="text/javascript" src="js/processing.js"></script>
+  </head>
+  
+  <body>
+     <ul>
+        <li><p><a href="index.html" class="btn btn-info btn-sm">Home</a></p></li>
+        <li><p><a href="portfolio.html" class="btn btn-info btn-sm">portfolio</a></p></li>
+        </ul>
+        
+    <h1>Click Ball</h1>
+    <h4>click the ball to get points</h4>
+    
+    <script type="text/processing">
+    
+     int rad = 40;   
+int gameState;
+float x, y;     
+float xSpeed = 7; 
+float ySpeed = 7;     
+int xdirection = 1;  
+int ydirection = 1; 
+int score=0;       
+int lives=5;         
+boolean lost=false;                
+int speed=1; 
+ 
+void setup(){
+  size(800, 600);
+  gameState=0;
+}
+void draw(){
+  background(0);
+ 
+  if (gameState==0){
+    startScreen();
+  }
+ else if (gameState==1){
+      x += xSpeed;
+  if (x > width || x < 0) {
+   xSpeed *= -1;
+  }
+   y += ySpeed;
+  if (y > height || y < 0) {
+   ySpeed *= -1;
+  }
+  
+  ellipse(x, y, rad, rad);    
+  
+  text("score = "+score,10,10);                
+  text("lives = "+lives,width-80,10);          
+  if (lives<=0)                                  
+  {
+    textSize(44);
+    if(mouseX > 250 && mouseX < 550 && mouseY < 400  && mouseY > 345 )
+    fill(2, 58, 242); //blue
+    else{
+      fill(134, 2, 242);  //purple
+    }
+    rect(250, 400, 350, -55, 15);
+    fill(225);
+    text("Click to Restart", 255,390);
+    noLoop();                                   
+    lost=true;
+    textSize(13);
+  }
+}
+}
+void mousePressed()                            
+{
+  if (dist(mouseX, mouseY, x, 200)<=40)     
+  {
+    score=score+speed;                         
+    speed=speed+1;                              
+  }
+  else                                         
+  {
+    if (speed<1)                                
+    {
+    speed=speed-1;
+    }
+    lives=lives-1;                               
+  }
+  if (lost==true)                               
+  {
+    speed=1;                                    
+    lives=5;
+    score=0;
+  
+    xdirection=1;
+    lost=false;
+    loop();                                      
+  }
+}
+void startScreen(){
+ textSize(20);
+    fill(255);  //white
+    text("Don't press that button", 15, 20);
+     textSize(44);
+    text("'Click Ball' ", 300, 250);
+    if(mouseX > 250 && mouseX < 550 && mouseY < 400  && mouseY > 345 ){
+      fill(2, 58, 242); //blue
+      if(mousePressed){
+        gameState=1;
+      }
+    }
+    else{
+      fill(134, 2, 242);  //purple
+    }
+    rect(250, 400, 300, -55, 15);
+    fill(255);
+    text("Click to start!", 255, 390);
+}
+       
+ 
+    
+    </script>
+    <canvas id="sketch" style="border: 1px solid black;"></canvas>
+    
+  </body>
+  
+</html>
